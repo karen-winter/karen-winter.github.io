@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ingredient Lookup Tool | Data Analyst Portfolio</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav class="bar">
+      <a class="name" href="index.html">[Your Name]</a>
+      <a href="index.html">Home</a>
+      <a href="inci.html">INCI Project</a>
+      <a class="here" href="lookup-tool.html">Ingredient Lookup Tool</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Ingredient Lookup Tool</h1>
+    <p class="lead">I try new products a lot. I used to look up every ingredient one by one. Now I paste the full ingredient list into my Google Sheet and get everything in one table.</p>
+    <ul class="tools">
+      <li>Google Sheets</li><li>XLOOKUP</li><li>FILTER</li><li>REGEXREPLACE</li><li>LET / LAMBDA</li>
+    </ul>
+
+    <h2>How it works</h2>
+    <ol class="plain">
+      <li>I paste a product's ingredient list into one cell.</li>
+      <li>The sheet splits it into one row per ingredient, in the same order as the label. Order matters because ingredients near the top are used in larger amounts.</li>
+      <li>Each ingredient is matched to its standard name using my mapping table, so different spellings on different labels still find the right ingredient.</li>
+      <li>It pulls in the EWG score range and my flags for each ingredient, plus my notes on why I avoid it.</li>
+      <li>It shows which products I've used before that have the same ingredient. That helps me guess if a new product might break me out.</li>
+    </ol>
+
+    <div class="todo">Add a screenshot of the INCI_search tab with a product pasted in. Crop out your Google account name and anything personal.</div>
+
+    <h2>What it flags</h2>
+    <p>The top of the sheet gives a quick summary of the product:</p>
+    <ul class="plain">
+      <li>Total number of ingredients</li>
+      <li>High-risk ingredients (EWG 8 or higher)</li>
+      <li>Ingredients on my avoid list</li>
+      <li>Carcinogen, cancer, hormone, acne, allergy and irritation, and contamination concerns</li>
+      <li>New ingredients that aren't in my list yet, so I know what to research</li>
+    </ul>
+
+    <h2>Two more search tabs</h2>
+    <p>I also built a product search and an ingredient search. I can type part of a product name or an ingredient and see every match with its scores and flags.</p>
+
+    <div class="todo">Optional: add a screenshot of the ingredient search tab.</div>
+
+    <h2>What I learned building it</h2>
+    <p>My first formulas worked on the raw ingredient text. They counted things like "may contain" as an ingredient. I rebuilt them to use the product_ingredient table, and the counts came out right.</p>
+    <p>I built the formulas with help from Gemini. I worked through each one until I understood what it was doing, and kept notes on every change in a formula tab.</p>
+
+    <p class="note">The sheet itself stays private because it holds the data I collected by hand. The screenshots show how it works.</p>
+  </main>
+
+  <footer>
+    <p>Built with plain HTML and CSS. Hosted on GitHub Pages.</p>
+  </footer>
+</body>
+</html>
