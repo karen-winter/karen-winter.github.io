@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Analyst Portfolio</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="style_hyperspace.css">
+</head>
+<body>
+
+  <aside id="side">
+    <a class="who" href="#home">
+      <b>Karen Winter</b>
+      <span>Data Analyst</span>
+    </a>
+    <nav>
+      <a href="#about">About me</a>
+      <a href="#projects">My projects</a>
+      <div class="subs">
+        <a href="#analysis">Cosmetic Ingredient Analysis</a>
+        <div class="subs">
+          <a href="#sql">MySQL</a>
+          <a href="#dashboard">Tableau</a>
+        </div>
+        <a href="#lookup">Ingredient Lookup Tool</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main id="content">
+
+    <section id="home" class="shade-1 tall">
+      <div class="inner">
+        <h1>Karen Winter</h1>
+        <p class="intro">Data Analyst. A portfolio project built with SQL, Tableau and Google Sheets.</p>
+
+        <div class="tiles">
+          <a class="tile" href="#sql">
+            <div class="peek fade">
+<pre><span class="k">SELECT</span>
+    COALESCE(risk,<span class="s">'total'</span>) risk,
+    COUNT(*) <span class="k">AS</span> ingredients,
+    CONCAT(ROUND(COUNT(*)/(<span class="k">SELECT</span> COUNT(*) <span class="k">FROM</span> ingredient)*<span class="n">100</span>,<span class="n">2</span>),<span class="s">'%'</span>) pct_distro
+<span class="k">FROM</span> ingredient
+<span class="k">GROUP</span> <span class="k">BY</span> risk <span class="k">WITH</span> <span class="k">ROLLUP</span>
+<span class="k">ORDER</span> <span class="k">BY</span> GROUPING(risk), ingredients <span class="k">DESC</span>;</pre>
+            </div>
+            <div class="label"><b>MySQL analysis</b><span>12 queries, with what I found</span></div>
+          </a>
+          <a class="tile" href="#dashboard">
+            <div class="peek"><img src="home-tableau.png" alt="A chart from the Tableau dashboard showing the share of low, medium and high risk products in each category."></div>
+            <div class="label"><b>Tableau dashboard</b><span>6 interactive charts</span></div>
+          </a>
+          <a class="tile" href="#lookup">
+            <div class="peek fade"><img src="home-lookup.png" alt="The ingredient lookup tool's summary for one product, listing its high-risk and avoid ingredients."></div>
+            <div class="label"><b>Ingredient Lookup Tool</b><span>Built in Google Sheets</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="shade-1 tall">
+      <div class="inner">
+        <h1>About me</h1>
+        <p>I worked at a large telecommunications company for about 15 years in a few different roles. Here are some of the reporting tasks I did there:</p>
+        <ul>
+          <li>Built weekly sales performance reports and presentations for leadership and the Director's staff meetings.</li>
+          <li>Developed the Quality Door Tracker in Google Sheets, consolidating 1,200+ outlet records and achieving a 95% data completion rate; leadership leveraged this data to drive strategic brand improvements.</li>
+          <li>Analyzed operational cost data in Excel with pivot tables and slicers, which helped cut costs by $9K in two months.</li>
+          <li>Generated and distributed daily and monthly sales dashboard reports to key stakeholders.</li>
+          <li>Analyzed Net Promoter Score (NPS) results to help improve customer satisfaction.</li>
+          <li>Designed standardized reporting templates to reduce manual effort while ensuring consistent formatting across all deliverables.</li>
+          <li>Built a Promo Finder tool in Google Sheets with QUERY functions. Field teams could search promotions by date, which sped up our answers to escalations.</li>
+        </ul>
+        <p>Throughout my career, people have known me as a problem solver. Account managers often came to me when they had a difficult customer escalation and needed help. I also like sharing what I've learned on my own with my team. I made troubleshooting guides in Google Slides that listed the resources and steps for fixing different system and promotion issues. I'm very organized as well, which made it easy to find the right documents when I had a complex problem to solve.</p>
+        <p>I love learning, which is why I spent the past few years building skills I can use at any job. At first I wanted to learn everything. I started with cloud computing and earned the AWS Certified Solutions Architect - Associate certification after about a year of studying. Along the way I also took courses in Linux, networking, Bash and Python. Then I realized I couldn't keep it all, because I wasn't using those skills every day. I had to pick one thing and really focus on it, and I landed on data analysis. It's something I've always wanted to do, and I already had experience with it from my reporting work. Since then I've studied SQL and Tableau through Analyst Builder.</p>
+        <p>My INCI project is how I put those skills to use. It has two parts: the <a href="#analysis">Cosmetic Ingredient Analysis</a> and the <a href="#lookup">Ingredient Lookup Tool</a>. It started with my own skincare and makeup. I used to believe that a higher price tag guaranteed the best quality and most effective products. I relied solely on brand advertising and customer reviews. I first learned about "clean" beauty in 2022 and started paying more attention to the ingredients in my products. I wanted a tool that would give me an overview of the ingredients in a product and their risks, so I could form my own judgment on what the product is designed to do. That's when I started designing my own tool and gathering data on each ingredient I came across. A product's ingredient list is also called an INCI list (International Nomenclature of Cosmetic Ingredients), which is where the project gets its name. After building and utilizing the tool, I learned that advertising and reviews aren't reliable on their own. I use this tool every time I shop for new products. It's a huge time-saver, especially when I'm comparing several products at the same time.</p>
+      </div>
+    </section>
+
+    <section id="projects" class="flush">
+      <div class="projects-head">
+        <h2>My projects</h2>
+      </div>
+
+      <div class="project">
+        <div class="picture"><div class="dot"><svg viewBox="0 0 64 64" fill="none" stroke="#5a8fc6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 56h48"/><path d="M16 56V34"/><path d="M28 56V14"/><path d="M40 56V26"/><path d="M52 56V42"/></svg></div></div>
+        <div class="words">
+          <h3>Cosmetic Ingredient Analysis</h3>
+          <p>I collected the ingredient lists for 392 beauty and personal care products and analyzed which ingredients show up in the products with higher EWG scores and other safety concerns. Built with Google Sheets, MySQL and Tableau.</p>
+          <a class="button" href="#analysis">View project</a>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="picture"><div class="dot"><svg viewBox="0 0 64 64" fill="none" stroke="#5a8fc6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="27" cy="27" r="17"/><path d="M40 40l16 16"/><path d="M19 23h16"/><path d="M19 31h10"/></svg></div></div>
+        <div class="words">
+          <h3>Ingredient Lookup Tool</h3>
+          <p>A Google Sheet I use when I shop. I paste in a product's ingredient list and it shows the risks for every ingredient, including EWG scores and acne, cancer, hormone, irritation and contamination concerns. It also shows my notes and a list of the products I've used that contain each ingredient.</p>
+          <a class="button" href="#lookup">View project</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="analysis" class="shade-1">
+      <div class="inner">
+        <h2>Cosmetic Ingredient Analysis</h2>
+        <p class="intro">I collected the ingredient lists for 392 beauty and personal care products by hand. I wanted to see how a product's ingredients relate to its EWG score and other safety concerns.</p>
+        <p>I used Google Sheets to collect and clean the data, MySQL to analyze it, and Tableau Public to chart it.</p>
+        <p class="jump">Go to: <a href="#sql">MySQL analysis</a> · <a href="#dashboard">Tableau dashboard</a></p>
+
+        <h3 id="data">The data</h3>
+        <p>I started this sheet just for myself, to keep track of what's in the products I use. When I turned it into a project, I had to clean it up and split it into 4 tables:</p>
+        <ul>
+          <li><b>product</b>: one row per product, with its brand, category and EWG score. There are 392 products in 7 categories.</li>
+          <li><b>ingredient</b>: one row per ingredient, with its EWG score range and flags for avoid, carcinogen, acne and more. There are 1,560 ingredients.</li>
+          <li><b>product_ingredient</b>: which ingredients are in which product. There are 10,259 rows.</li>
+          <li><b>ing_map</b>: matches 880 different label spellings to one standard ingredient name.</li>
+        </ul>
+        <p>I standardized brand names with <code>TRIM</code>, <code>PROPER</code>, <code>CLEAN</code> and <code>REGEXREPLACE</code>, made sure the EWG columns only held numbers, removed duplicate products, and cleaned up product names. I also set my own low, medium and high risk tiers.</p>
+        <p><b>Where the data comes from</b></p>
+        <ul>
+          <li><b>EWG's Skin Deep database</b> (ewg.org/skindeep): product and ingredient EWG scores, plus the cancer, hormone, allergy/irritation and contaminant columns.</li>
+          <li><b>California Proposition 65 list</b>: the carcinogen column.</li>
+          <li><b>Skinwis ingredient analyzer</b> (skinwis.com/analyzer): the acne risk column (low, medium or high).</li>
+          <li><b>My own choices</b>: the avoid list, the low, medium and high risk tiers, and my notes.</li>
+        </ul>
+
+        <h3 id="limits">Limits of this data</h3>
+        <ul>
+          <li>These are all products I use, so it's not a random sample of what's on the market.</li>
+          <li>EWG scores are one organization's ratings. Other sources may rate the same ingredient differently.</li>
+        </ul>
+        <p class="small-note">EWG has not reviewed or endorsed this analysis.</p>
+      </div>
+    </section>
+
+    <section id="sql" class="shade-1">
+      <div class="inner">
+        <h2>MySQL analysis</h2>
+        <p>I loaded the 4 tables into MySQL and wrote 12 queries. Each one starts with the question I wanted to answer. What I found is written under each query.</p>
+        <p class="small-note">These results show what goes together in my data. They don't prove that one thing causes another.</p>
+
+        <p><b>Loading the data</b></p>
+        <p>I built the 4 tables in Google Sheets first. The Table Data Import Wizard in MySQL Workbench gave me errors, so I created the tables with <code>CREATE TABLE</code> and loaded the data with <code>INSERT</code> statements. To build the rows of values, I used a Google Sheets formula with <code>ARRAYFORMULA</code>, <code>TEXTJOIN</code> and <code>SUBSTITUTE</code>. I ran into three problems along the way:</p>
+        <ul>
+          <li>Blank and "N/A" values caused errors. They turned out to be ingredients with no EWG score, so I removed them.</li>
+          <li>Names with an apostrophe, like Paula's Choice, broke the statement. <code>SUBSTITUTE</code> doubles the apostrophe (<code>Paula''s Choice</code>) to fix it.</li>
+          <li>MySQL reads a backslash (\) as an escape character, so I replaced every backslash with a forward slash.</li>
+        </ul>
+
+        <h4>1. Risk distribution across all the ingredients</h4>
+<pre><span class="k">SELECT</span>
+    COALESCE(risk,<span class="s">'total'</span>) risk,
+    COUNT(*) <span class="k">AS</span> ingredients,
+    CONCAT(ROUND(COUNT(*)/(<span class="k">SELECT</span> COUNT(*) <span class="k">FROM</span> ingredient)*<span class="n">100</span>,<span class="n">2</span>),<span class="s">'%'</span>) pct_distro
+<span class="k">FROM</span> ingredient
+<span class="k">GROUP</span> <span class="k">BY</span> risk <span class="k">WITH</span> <span class="k">ROLLUP</span>
+<span class="k">ORDER</span> <span class="k">BY</span> GROUPING(risk), ingredients <span class="k">DESC</span>;</pre>
+        <p>Only 1% of the ingredients (16 of 1,560) are in the high-risk category.</p>
+        <h4>2. Which product categories have the highest share of high-risk products?</h4>
+<pre><span class="k">SELECT</span>
+    COALESCE(category,<span class="s">'Total'</span>) category,
+    SUM(<span class="k">CASE</span> <span class="k">WHEN</span> ewg &lt;= <span class="n">3</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">ELSE</span> <span class="n">0</span> <span class="k">END</span>) <span class="k">AS</span> low_risk,
+    SUM(<span class="k">CASE</span> <span class="k">WHEN</span> ewg <span class="k">BETWEEN</span> <span class="n">4</span> <span class="k">AND</span> <span class="n">7</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">ELSE</span> <span class="n">0</span> <span class="k">END</span>) <span class="k">AS</span> medium_risk,
+    SUM(<span class="k">CASE</span> <span class="k">WHEN</span> ewg &gt;= <span class="n">8</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">ELSE</span> <span class="n">0</span> <span class="k">END</span>) <span class="k">AS</span> high_risk,
+    COUNT(*) <span class="k">AS</span> total_product,
+    ROUND(AVG(ewg),<span class="n">1</span>) <span class="k">AS</span> avg_ewg,
+    CONCAT(ROUND(SUM(<span class="k">CASE</span> <span class="k">WHEN</span> ewg &lt;= <span class="n">3</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">ELSE</span> <span class="n">0</span> <span class="k">END</span>) / COUNT(*) * <span class="n">100</span>, <span class="n">1</span>),<span class="s">'%'</span>) <span class="k">AS</span> low_risk_pct,
+    CONCAT(ROUND(SUM(<span class="k">CASE</span> <span class="k">WHEN</span> ewg <span class="k">BETWEEN</span> <span class="n">4</span> <span class="k">AND</span> <span class="n">7</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">ELSE</span> <span class="n">0</span> <span class="k">END</span>) / COUNT(*) * <span class="n">100</span>, <span class="n">1</span>),<span class="s">'%'</span>) <span class="k">AS</span> medium_risk_pct,
+    CONCAT(ROUND(SUM(<span class="k">CASE</span> <span class="k">WHEN</span> ewg &gt;= <span class="n">8</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">ELSE</span> <span class="n">0</span> <span class="k">END</span>) / COUNT(*) * <span class="n">100</span>, <span class="n">1</span>),<span class="s">'%'</span>) <span class="k">AS</span> high_risk_pct
+<span class="k">FROM</span> product
+<span class="k">GROUP</span> <span class="k">BY</span> category <span class="k">WITH</span> <span class="k">ROLLUP</span>
+<span class="k">ORDER</span> <span class="k">BY</span> GROUPING(category), SUM(<span class="k">CASE</span> <span class="k">WHEN</span> ewg &gt;= <span class="n">8</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">ELSE</span> <span class="n">0</span> <span class="k">END</span>) / COUNT(*) <span class="k">DESC</span>, AVG(ewg) <span class="k">DESC</span>;</pre>
+        <p>Sunscreen has the highest share of high-risk products (3.1%), but that's only 1 product out of 32. Makeup has the most high-risk products (4). I also have the most products in makeup, and it has the highest average EWG score (3.9). Overall, the bigger categories tend to have more high-risk products and higher average EWG scores, but it's not a perfect pattern.</p>
+        <h4>3. For brands with at least 5 products, how many of their products are medium or high risk (EWG 4 or higher)?</h4>
+<pre><span class="k">SELECT</span>
+    brand,
+    COUNT(*) <span class="k">AS</span> n_product,
+    SUM(ewg &gt;= <span class="n">4</span>) <span class="k">AS</span> medium_high_products,
+    ROUND(SUM(ewg &gt;= <span class="n">4</span>) / COUNT(*) * <span class="n">100</span>, <span class="n">1</span>) <span class="k">AS</span> pct_medium_high,
+    ROUND(AVG(ewg),<span class="n">2</span>) <span class="k">AS</span> avg_ewg
+<span class="k">FROM</span> product
+<span class="k">GROUP</span> <span class="k">BY</span> brand
+<span class="k">HAVING</span> COUNT(*) &gt;= <span class="n">5</span>
+<span class="k">ORDER</span> <span class="k">BY</span> avg_ewg <span class="k">DESC</span>, n_product <span class="k">DESC</span>;</pre>
+        <p>Dior and Shiseido have the highest average EWG scores (about 6.5), and every one of their products is medium or high risk. SKIN1004, Good Molecules and e.l.f. have the lowest (2.2 to 2.3).</p>
+        <h4>4. Which ingredients appear most often across products (top 15)?</h4>
+<pre><span class="k">SELECT</span>
+    pi.ing_id,
+    i.ingredient_standard,
+    i.ewg,
+    COUNT(<span class="k">DISTINCT</span> pi.pro_id) <span class="k">AS</span> n_product
+<span class="k">FROM</span> product_ingredient pi
+<span class="k">JOIN</span> ingredient i <span class="k">ON</span> pi.ing_id = i.ing_id
+<span class="k">GROUP</span> <span class="k">BY</span> pi.ing_id, i.ingredient_standard,i.ewg
+<span class="k">ORDER</span> <span class="k">BY</span> COUNT(<span class="k">DISTINCT</span> pi.pro_id) <span class="k">DESC</span>
+<span class="k">LIMIT</span> <span class="n">15</span>;</pre>
+        <p>The most common ingredients all have low EWG scores. Water is in 288 products and glycerin is in 231.</p>
+        <h4>5. Which ingredients have a high EWG rating (EWG 8 or higher)?</h4>
+<pre><span class="k">SELECT</span>
+    i.ingredient_standard,
+    ewg_min,
+    ewg_max,
+    COUNT(<span class="k">DISTINCT</span> pi.pro_id) n_product,
+    ewg_max-ewg_min <span class="k">AS</span> ewg_gap,
+    carcinogen,
+    cancer,
+    avoid
+<span class="k">FROM</span> ingredient i
+<span class="k">LEFT</span> <span class="k">JOIN</span> product_ingredient pi <span class="k">ON</span> pi.ing_id=i.ing_id
+<span class="k">WHERE</span> ewg_max &gt;=<span class="n">8</span>
+<span class="k">GROUP</span> <span class="k">BY</span> i.ingredient_standard, ewg_min, ewg_max, carcinogen, cancer,avoid
+<span class="k">ORDER</span> <span class="k">BY</span> ewg_max <span class="k">DESC</span>, ewg_gap <span class="k">DESC</span>, n_product <span class="k">DESC</span>;</pre>
+        <p>This list helped me decide which ingredients to avoid. I tend to avoid ingredients with a high EWG score (8 or higher) and a small EWG gap (2 or less). A bigger EWG gap means the risk depends on the product formulation (powder vs. liquid). Take carbon black as an example. It's high risk in powder form, but all of my makeup products with carbon black are in liquid form. That lowers the health risk a lot, which is why I don't avoid this ingredient.</p>
+        <p>I don't avoid most retinoids, even with their high EWG scores. They're one of the best-proven anti-aging ingredients, and the concentration in cosmetic products is low. Retinyl palmitate is the exception. It's on Sephora's Clean Beauty list of ingredients a product must be made without, and none of the other retinoids are on that list. A 2012 study also found it sped up skin tumors in mice exposed to UV light. In my products it shows up in lipsticks and an eye primer I wear during the day, not in anti-aging treatments, so I'd rather skip it.</p>
+        <h4>6. Which products contain high-risk ingredients (EWG 8 or higher)?</h4>
+<pre><span class="k">SELECT</span>
+    p.pro_id,
+    p.product_name,
+    p.category,
+    p.ewg <span class="k">AS</span> product_ewg,
+    COUNT(pi.ing_id) <span class="k">AS</span> high_risk_ingredient,
+    ROUND(AVG(i.ewg_max),<span class="n">2</span>) <span class="k">AS</span> avg_ewg_high_risk_ing,
+    GROUP_CONCAT(<span class="k">DISTINCT</span> i.ingredient_standard <span class="k">ORDER</span> <span class="k">BY</span> i.ingredient_standard SEPARATOR <span class="s">', '</span>) <span class="k">AS</span> high_risk_ingredients
+<span class="k">FROM</span> product p
+<span class="k">JOIN</span> product_ingredient pi <span class="k">ON</span> p.pro_id = pi.pro_id
+<span class="k">JOIN</span> ingredient i <span class="k">ON</span> pi.ing_id = i.ing_id
+<span class="k">WHERE</span> i.ewg_max &gt;= <span class="n">8</span>
+<span class="k">GROUP</span> <span class="k">BY</span> p.pro_id, p.product_name, p.category, p.ewg
+<span class="k">ORDER</span> <span class="k">BY</span> high_risk_ingredient <span class="k">DESC</span>, avg_ewg_high_risk_ing <span class="k">DESC</span>;</pre>
+        <p>110 products contain at least one high-risk ingredient. I was surprised to see that more than a quarter of the products I use (28%) contain these ingredients.</p>
+        <h4>7. How are fragranced products spread across each category?</h4>
+<pre><span class="k">SELECT</span>
+    COALESCE(category,<span class="s">"Total"</span>) <span class="k">AS</span> category,
+    COUNT(*) <span class="k">AS</span> total_products,
+    COUNT(<span class="k">CASE</span> <span class="k">WHEN</span> contain_fragrance = <span class="s">"True"</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">END</span>) <span class="k">AS</span> fragrance_product,
+    COUNT(<span class="k">CASE</span> <span class="k">WHEN</span> contain_fragrance = <span class="s">"False"</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">END</span>) <span class="k">AS</span> no_fragrance_product,
+    ROUND(COUNT(<span class="k">CASE</span> <span class="k">WHEN</span> contain_fragrance = <span class="s">"True"</span> <span class="k">THEN</span> <span class="n">1</span> <span class="k">END</span>)/COUNT(*) *<span class="n">100</span>,<span class="n">2</span>) <span class="k">AS</span> fragrance_percentage,
+    ROUND(AVG(ewg),<span class="n">2</span>) <span class="k">AS</span> avg_ewg,
+    ROUND(AVG(<span class="k">CASE</span> <span class="k">WHEN</span> contain_fragrance = <span class="s">"False"</span> <span class="k">THEN</span> ewg <span class="k">END</span>),<span class="n">2</span>) <span class="k">AS</span> avg_ewg_no_fragrance,
+    ROUND(AVG(<span class="k">CASE</span> <span class="k">WHEN</span> contain_fragrance = <span class="s">"True"</span> <span class="k">THEN</span> ewg <span class="k">END</span>),<span class="n">2</span>) <span class="k">AS</span> avg_ewg_fragrance,
+    ROUND(AVG(<span class="k">CASE</span> <span class="k">WHEN</span> contain_fragrance = <span class="s">"True"</span> <span class="k">THEN</span> ewg <span class="k">END</span>),<span class="n">2</span>) -
+        ROUND(AVG(<span class="k">CASE</span> <span class="k">WHEN</span> contain_fragrance = <span class="s">"False"</span> <span class="k">THEN</span> ewg <span class="k">END</span>),<span class="n">2</span>) <span class="k">AS</span> gap_avg_ewg
+<span class="k">FROM</span> product p
+<span class="k">GROUP</span> <span class="k">BY</span> category <span class="k">WITH</span> <span class="k">ROLLUP</span>
+<span class="k">ORDER</span> <span class="k">BY</span> GROUPING(category), avg_ewg_fragrance <span class="k">DESC</span>;</pre>
+        <p>In every category that has fragranced products, they have a higher average EWG score than the ones without fragrance. Overall it's 5.56 with fragrance vs. 3.15 without. Skincare has the biggest gap (6.21 vs. 3.07), and haircare has the most fragranced products (39%).</p>
+        <h4>8a. What percentage of products in each category contain ingredients I avoid, and how does that affect their average EWG scores?</h4>
+<pre><span class="k">SELECT</span>
+    COALESCE(category,<span class="s">"Total"</span>) <span class="k">AS</span> category,
+    COUNT(*) <span class="k">AS</span> total_product,
+    SUM(n_avoid &gt; <span class="n">0</span>) <span class="k">AS</span> avoid_products,
+    ROUND(SUM(n_avoid &gt; <span class="n">0</span>)/COUNT(*)*<span class="n">100</span>,<span class="n">2</span>) <span class="k">AS</span> avoid_percentage,
+    ROUND(AVG(<span class="k">CASE</span> <span class="k">WHEN</span> n_avoid &gt; <span class="n">0</span> <span class="k">THEN</span> ewg <span class="k">END</span>),<span class="n">2</span>) <span class="k">AS</span> avg_ewg_avoid,
+    ROUND(AVG(<span class="k">CASE</span> <span class="k">WHEN</span> n_avoid = <span class="n">0</span> <span class="k">THEN</span> ewg <span class="k">END</span>),<span class="n">2</span>) <span class="k">AS</span> avg_ewg_no_avoid
+<span class="k">FROM</span> product
+<span class="k">GROUP</span> <span class="k">BY</span> category <span class="k">WITH</span> <span class="k">ROLLUP</span>
+<span class="k">ORDER</span> <span class="k">BY</span> GROUPING (category), avoid_products <span class="k">DESC</span>;</pre>
+        <p>36% of my products (141) contain at least one ingredient I avoid. They average 4.50 vs. 2.96 for products without them, and they score higher in every category. Haircare has the highest share at 58%.</p>
+        <h4>8b. Which ingredients I avoid show up in the most products, and what are their risk profiles?</h4>
+<pre><span class="k">SELECT</span>
+    i.ingredient_standard,
+    i.ewg_max,
+    i.hormone,
+    i.carcinogen,
+    i.cancer,
+    i.acne,
+    COUNT(<span class="k">DISTINCT</span> pi.pro_id) <span class="k">AS</span> products,
+    ROUND(AVG(p.ewg),<span class="n">2</span>) <span class="k">AS</span> avg_product_ewg
+<span class="k">FROM</span> ingredient i
+<span class="k">JOIN</span> product_ingredient pi <span class="k">ON</span> pi.ing_id = i.ing_id
+<span class="k">JOIN</span> product p <span class="k">ON</span> p.pro_id = pi.pro_id
+<span class="k">WHERE</span> avoid = <span class="s">'yes'</span>
+<span class="k">GROUP</span> <span class="k">BY</span> i.ingredient_standard, i.ewg_max, i.hormone,i.cancer, i.carcinogen, i.acne
+<span class="k">ORDER</span> <span class="k">BY</span> products <span class="k">DESC</span>, ewg_max <span class="k">DESC</span>;</pre>
+        <p>There are 39 ingredients I avoid, and fragrance is in the most products (59). I avoid ingredients with an ewg_max of 10, except carbon black. It's the only one of those 5 ingredients with an ewg_min of 3, which makes its EWG gap bigger. That means its safety depends on more variables. I also avoid ingredients that can disrupt hormones (preservatives like BHT and parabens).</p>
+        <p>Synthetic ureas can release formaldehyde, so I avoid those as well. I avoid ingredients that I know break me out, like biotin, VP polymers and glyceryl dioleate, even though they have low EWG scores.</p>
+        <h4>9. Do more ingredients lead to a higher EWG rating?</h4>
+<pre><span class="k">SELECT</span>
+    <span class="k">CASE</span>
+        <span class="k">WHEN</span> n_ingredient &lt;= <span class="n">10</span> <span class="k">THEN</span> <span class="s">'01: 1-10 Ingredients'</span>
+        <span class="k">WHEN</span> n_ingredient &lt;= <span class="n">20</span> <span class="k">THEN</span> <span class="s">'02: 11-20 Ingredients'</span>
+        <span class="k">WHEN</span> n_ingredient &lt;= <span class="n">30</span> <span class="k">THEN</span> <span class="s">'03: 21-30 Ingredients'</span>
+        <span class="k">ELSE</span> <span class="s">'04: 31+ Ingredients'</span>
+    <span class="k">END</span> <span class="k">AS</span> ingredient_bracket,
+    COUNT(*) <span class="k">AS</span> product_count,
+    ROUND(AVG(ewg), <span class="n">2</span>) <span class="k">AS</span> avg_ewg_rating,
+    MIN(ewg) <span class="k">AS</span> lowest_ewg,
+    MAX(ewg) <span class="k">AS</span> highest_ewg
+<span class="k">FROM</span> product
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">1</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">1</span> <span class="k">ASC</span>;</pre>
+        <p>It does seem like the average EWG score goes up as the ingredient count goes up, from 1.94 for 1-10 ingredients to 4.37 for 31+.</p>
+        <h4>10a. What percentage of my products contain carcinogens? Compare by category, and compare the average EWG with vs. without.</h4>
+<pre><span class="k">SELECT</span>
+    COALESCE(category,<span class="s">'total'</span>) <span class="k">AS</span> category,
+    COUNT(*) <span class="k">AS</span> total_products,
+    SUM(n_carcinogen &gt; <span class="n">0</span>) <span class="k">AS</span> carcinogen_products,
+    ROUND(SUM(n_carcinogen &gt; <span class="n">0</span>) / COUNT(*) * <span class="n">100</span>, <span class="n">1</span>) <span class="k">AS</span> pct_carcinogen,
+    ROUND(AVG(<span class="k">CASE</span> <span class="k">WHEN</span> n_carcinogen &gt; <span class="n">0</span> <span class="k">THEN</span> ewg <span class="k">END</span>),<span class="n">2</span>) <span class="k">AS</span> avg_ewg_with,
+    ROUND(AVG(<span class="k">CASE</span> <span class="k">WHEN</span> n_carcinogen = <span class="n">0</span> <span class="k">THEN</span> ewg <span class="k">END</span>),<span class="n">2</span>) <span class="k">AS</span> avg_ewg_without
+<span class="k">FROM</span> product
+<span class="k">GROUP</span> <span class="k">BY</span> category <span class="k">WITH</span> <span class="k">ROLLUP</span>
+<span class="k">ORDER</span> <span class="k">BY</span> ISNULL(category), pct_carcinogen <span class="k">DESC</span>;</pre>
+        <p>36.5% of my products contain at least one carcinogenic ingredient, so I dig into what those ingredients are in 10b. Makeup has by far the highest share (82.9%).</p>
+        <h4>10b. Which carcinogenic ingredients are in my products?</h4>
+<pre><span class="k">SELECT</span>
+    i.ingredient_standard,
+    i.ewg,
+    i.risk,
+    i.cancer <span class="k">AS</span> ewg_cancer_concern,
+    COUNT(<span class="k">DISTINCT</span> p.pro_id) <span class="k">AS</span> products
+<span class="k">FROM</span> ingredient i
+<span class="k">JOIN</span> product_ingredient pi <span class="k">ON</span> pi.ing_id = i.ing_id
+<span class="k">JOIN</span> product p <span class="k">ON</span> p.pro_id = pi.pro_id
+<span class="k">WHERE</span> i.carcinogen = <span class="s">'yes'</span>
+<span class="k">GROUP</span> <span class="k">BY</span> i.ing_id, i.ingredient_standard, i.ewg, i.risk, i.cancer
+<span class="k">ORDER</span> <span class="k">BY</span> products <span class="k">DESC</span>;</pre>
+        <p>Only 3 carcinogenic ingredients show up in my products, and I'm not too concerned about 2 of them (titanium dioxide and carbon black).</p>
+      </div>
+    </section>
+
+    <section id="dashboard" class="shade-1 wide">
+      <div class="inner">
+        <h2>Tableau dashboard</h2>
+        <p>I built a Tableau Public dashboard with 6 charts to show the main patterns. It's interactive, so you can hover over a chart to see the details.</p>
+        <p class="viz-help">Clicked something and the charts changed? <button type="button" id="viz-reset">Reset the dashboard</button></p>
+        <div class="viz" id="viz">
+          <iframe title="Cosmetic Ingredient Analysis dashboard" width="1200" height="1727" data-src="https://public.tableau.com/views/CosmeticIngredientAnalysis_17913001606690/Dashboard1?:showVizHome=no&amp;:embed=true&amp;:display_count=no&amp;:language=en-US"></iframe>
+        </div>
+        <p><a class="button" href="https://public.tableau.com/app/profile/karen.www/viz/CosmeticIngredientAnalysis_17913001606690/Dashboard1" target="_blank" rel="noopener">Open it full size on Tableau Public</a></p>
+      </div>
+    </section>
+
+    <section id="lookup" class="shade-2">
+      <div class="inner">
+        <h2>Ingredient Lookup Tool</h2>
+        <p class="intro">When a product's full ingredient list is pasted into the tool, it gives a snapshot of the product's risks. It also shows each ingredient next to past purchases that contain it.</p>
+
+        <h3>How it works</h3>
+        <ol>
+          <li>A product's ingredient list is pasted into one cell.</li>
+          <li>The sheet splits it into one row per ingredient, in the same order as the label. Order matters because ingredients near the top are used in larger amounts.</li>
+          <li>Each ingredient is matched to its standard name using a mapping table, so different spellings on different labels still find the right ingredient.</li>
+          <li>It pulls in the EWG score range and the risk flags for each ingredient, plus notes on why an ingredient is on the avoid list.</li>
+          <li>It shows which past purchases contain the same ingredient. That helps spot ingredients that have caused breakouts before.</li>
+        </ol>
+        <video class="demo" controls muted playsinline preload="metadata" width="1600" height="630">
+          <source src="lookup-demo-web.mp4" type="video/mp4">
+        </video>
+        <p class="small-note">A 46-second recording of the tool in use. It has no sound.</p>
+
+        <h3>What it flags</h3>
+        <p>The top of the sheet gives a quick summary of the product:</p>
+        <ul>
+          <li>Total number of ingredients</li>
+          <li>High-risk ingredients (EWG 8 or higher)</li>
+          <li>Ingredients on the avoid list</li>
+          <li>Carcinogen, cancer, hormone, acne, allergy and irritation, and contamination concerns</li>
+          <li>New ingredients that aren't in the data yet and need research</li>
+        </ul>
+        <p class="small-note">Click a screenshot to see it full size.</p>
+        <a class="shot" href="lookup-summary.png" target="_blank" rel="noopener"><img src="lookup-summary.png" alt="Screenshot of the lookup tool's summary for one product. It shows 35 ingredients and lists the high-risk, avoid, carcinogen and other flagged ingredients." width="1855" height="311"></a>
+        <p>Below the summary, a table gives the details for every ingredient:</p>
+        <ul>
+          <li>EWG score, risk flags, purpose and notes</li>
+          <li>Stars on every "high" and "yes"</li>
+          <li>How many products in the data contain the ingredient, and which ones</li>
+        </ul>
+        <a class="shot" href="lookup-table.png" target="_blank" rel="noopener"><img src="lookup-table.png" alt="Screenshot of the lookup tool's table. It has one row per ingredient with its risk, EWG score, flags, my notes, its purpose and the other products that contain it." width="1849" height="389"></a>
+        <p>There is also a product search and an ingredient search. Typing part of a product name or an ingredient shows every match with its scores and flags.</p>
+        <p class="shot-label">Product search</p>
+        <a class="shot" href="lookup-product-search.png" target="_blank" rel="noopener"><img src="lookup-product-search.png" alt="Screenshot of the product search tab. A search for estee finds 2 products and shows each one's EWG score, ingredient counts and full ingredient list." width="1626" height="329"></a>
+        <p class="shot-label">Ingredient search</p>
+        <a class="shot" href="lookup-ingredient-search.png" target="_blank" rel="noopener"><img src="lookup-ingredient-search.png" alt="Screenshot of the ingredient search tab. A search for fragrance finds 1 ingredient and shows its risk, EWG score, flags and purpose." width="1827" height="128"></a>
+
+        <h3>How I built it</h3>
+        <p>The main functions I used are <code>XLOOKUP</code>, <code>FILTER</code>, <code>REGEXREPLACE</code>, <code>LET</code> and <code>LAMBDA</code>. I built the formulas with help from AI tools. I worked through each one until I understood what it was doing, and kept notes on every change in a formula tab.</p>
+        <p>It took a lot of fixes to get the results right. These are the main ones:</p>
+        <ul>
+          <li><b>Splitting the ingredient list.</b> Splitting on commas wasn't enough. An ingredient like 1,2-Hexanediol has a comma in its name, and labels include extras like "may contain," percentages and color codes. I kept adding rules until every ingredient landed on its own row with a clean name.</li>
+          <li><b>Wrong counts.</b> My first formulas read each product's ingredient list as text. They counted "may contain" as an ingredient, and searching for the word "Fragrance" gave wrong results. I rebuilt them to count from the product_ingredient table, and the numbers came out right.</li>
+          <li><b>Scores read as text.</b> Some EWG scores were being treated as text instead of numbers, so they couldn't be compared. Multiplying them by 1 fixed it.</li>
+          <li><b>Order of the results.</b> The results were sorted A to Z at first. I changed them to keep the order on the label, because ingredients are listed from highest to lowest concentration.</li>
+        </ul>
+        <p class="small-note">The sheet itself stays private because it holds the data I collected by hand. The video and screenshots show how it works.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Layout inspired by Hyperspace from <a href="https://html5up.net">HTML5 UP</a>.
+  </footer>
+
+  <script>
+    // Shows one section at a time. Clicking a menu item (or any link that starts with #) switches the section.
+    (function () {
+      var links = Array.from(document.querySelectorAll('#side nav a'));
+      var sections = Array.from(document.querySelectorAll('#content > section'));
+      var ids = sections.map(function (s) { return s.id; });   // the first one, the landing page, shows when the site opens
+      document.documentElement.classList.add('one-at-a-time');
+
+      function show(id) {
+        if (ids.indexOf(id) < 0) id = ids[0];
+        sections.forEach(function (s) { s.classList.toggle('show', s.id === id); });
+        links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+        window.scrollTo(0, 0);
+        // Stop any video that is playing in a section that is now hidden.
+        Array.from(document.querySelectorAll('video')).forEach(function (v) { if (v.offsetParent === null) v.pause(); });
+        // On a phone the menu is a strip across the top: slide it so the current item is in view.
+        var current = document.querySelector('#side nav a.active');
+        var strip = document.getElementById('side');
+        if (current && strip.scrollWidth > strip.clientWidth) strip.scrollLeft = current.offsetLeft - 16;
+      }
+
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+        if (!link) return;
+        var id = link.getAttribute('href').slice(1);
+        if (ids.indexOf(id) < 0) return;
+        e.preventDefault();
+        if (location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+        show(id);
+      });
+      window.addEventListener('popstate', function () { show(location.hash.slice(1)); });
+      show(location.hash.slice(1));
+    })();
+  </script>
+  <script>
+    // Shows a screenshot at full size on top of the page, with an X button to close it.
+    (function () {
+      var viewer = document.createElement('div');
+      viewer.className = 'viewer';
+      viewer.innerHTML = '<div class="viewer-box"><button type="button" aria-label="Close">&times;</button><img alt=""></div>';
+      document.body.appendChild(viewer);
+      var big = viewer.querySelector('img');
+      var closeButton = viewer.querySelector('button');
+      function close() { viewer.classList.remove('open'); }
+      document.querySelectorAll('a.shot').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          big.src = link.href;
+          big.alt = link.querySelector('img').alt;
+          viewer.classList.add('open');
+          closeButton.focus();
+        });
+      });
+      closeButton.addEventListener('click', close);
+      viewer.addEventListener('click', function (e) { if (e.target === viewer) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
+  <script>
+    // Loads the Tableau dashboard when its section is opened, and shrinks it to fit the width of the page.
+    (function () {
+      var box = document.getElementById('viz');
+      if (!box) return;
+      var frame = box.querySelector('iframe');
+      var fullWidth = 1200, fullHeight = 1727;
+      function fit() {
+        if (box.offsetParent === null) return;            // the Tableau section is not showing
+        if (!frame.getAttribute('src')) frame.setAttribute('src', frame.getAttribute('data-src'));
+        var scale = Math.min(1, box.clientWidth / fullWidth);
+        frame.style.transform = 'scale(' + scale + ')';
+        box.style.height = Math.round(fullHeight * scale) + 'px';
+      }
+      ['click', 'popstate', 'resize', 'load'].forEach(function (name) {
+        window.addEventListener(name, function () { setTimeout(fit, 0); });
+      });
+      // The reset button loads the dashboard again, which clears anything a visitor clicked.
+      var reset = document.getElementById('viz-reset');
+      if (reset) reset.addEventListener('click', function () {
+        frame.setAttribute('src', 'about:blank');
+        setTimeout(function () { frame.setAttribute('src', frame.getAttribute('data-src')); }, 50);
+      });
+      fit();
+    })();
+  </script>
+</body>
+</html>
