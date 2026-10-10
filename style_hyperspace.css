@@ -386,39 +386,74 @@ html.one-at-a-time #content > section.show { display: block; flex: 1; }
 html.one-at-a-time #content > section.tall.show { display: flex; }
 html.one-at-a-time #content > section.flush.show { display: flex; flex-direction: column; background: var(--blue-3); }
 
-/* ---------- Phones and narrow windows: the menu moves to the top ---------- */
+/* The menu button is only used on phones. It stays hidden on desktop. */
+#menu-btn, #menu-shade { display: none; }
+
+/* ---------- Phones and narrow windows: the gray menu slides in from the left ---------- */
 
 @media (max-width: 980px) {
+  :root { --drawer: min(290px, 80vw); }
   #side {
-    position: sticky;
-    width: auto;
-    height: auto;
-    padding: 0 10px;
-    flex-direction: row;
+    width: var(--drawer);
+    padding: 36px 28px;
     justify-content: flex-start;
-    text-align: left;
-    overflow-x: auto;
-    z-index: 5;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 50;
   }
-  #side .who { display: none; }
-  #side nav { display: flex; white-space: nowrap; }
-  #side nav .subs { display: flex; margin: 0; padding: 0; border: 0; }
-  #side nav a, #side nav .subs a {
-    padding: 14px 12px;
-    font-size: 15px;
-    letter-spacing: 0.04em;
-    border-bottom: 0;
+  html.menu-open #side { transform: translateX(0); }
+  html.menu-open body { overflow: hidden; }
+  #side .who { position: static; margin-bottom: 26px; }
+  #side .who b { font-size: 24px; }
+  #side nav .subs a { white-space: normal; }
+
+  /* The button in the top-left corner. When the menu is open it turns into an X next to the menu. */
+  #menu-btn {
+    display: block;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: var(--side);
+    cursor: pointer;
+    z-index: 60;
+    transition: left 0.25s ease;
   }
-  #side nav a::after, #side nav .subs a::after { left: 0; right: 0; top: auto; bottom: 0; width: auto; height: 2px; }
-  #side nav .subs .subs { margin: 0; padding: 0; }
-  #side nav .subs .subs a { padding: 14px 12px; }
-  #side nav .subs .subs a::after { top: auto; bottom: 0; }
+  #menu-btn span {
+    position: absolute;
+    left: 11px;
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    transition: transform 0.25s ease, opacity 0.2s;
+  }
+  #menu-btn span:nth-child(1) { top: 15px; }
+  #menu-btn span:nth-child(2) { top: 21px; }
+  #menu-btn span:nth-child(3) { top: 27px; }
+  html.menu-open #menu-btn { left: calc(var(--drawer) + 12px); }
+  html.menu-open #menu-btn span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  html.menu-open #menu-btn span:nth-child(2) { opacity: 0; }
+  html.menu-open #menu-btn span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* Dark layer over the page while the menu is open. Tapping it closes the menu. */
+  html.menu-open #menu-shade {
+    display: block;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: rgba(24, 32, 44, 0.5);
+    z-index: 40;
+  }
+
   #content, footer { margin-left: 0; }
-  section, .projects-head { padding: 56px 24px; }
+  section, .projects-head { padding: 76px 24px 56px; }
   .projects-head { padding-bottom: 28px; }
   section.flush { padding: 0; }
   section.wide { padding-left: 12px; padding-right: 12px; }
-  section[id], div[id] { scroll-margin-top: 52px; }
+  section[id], div[id] { scroll-margin-top: 70px; }
   footer { padding: 24px; }
   h1 { font-size: 36px; }
   h2 { font-size: 30px; }

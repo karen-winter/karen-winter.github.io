@@ -9,6 +9,8 @@
 </head>
 <body>
 
+  <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="side"><span></span><span></span><span></span></button>
+  <div id="menu-shade"></div>
   <aside id="side">
     <a class="who" href="#home">
       <b>Karen Winter</b>
@@ -524,6 +526,26 @@
         setTimeout(function () { frame.setAttribute('src', frame.getAttribute('data-src')); }, 50);
       });
       fit();
+    })();
+  </script>
+  <script>
+    // Phones only: the button in the top-left corner opens and closes the gray menu.
+    (function () {
+      var button = document.getElementById('menu-btn');
+      var shade = document.getElementById('menu-shade');
+      var root = document.documentElement;
+      function setOpen(open) {
+        root.classList.toggle('menu-open', open);
+        button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      button.addEventListener('click', function () { setOpen(!root.classList.contains('menu-open')); });
+      shade.addEventListener('click', function () { setOpen(false); });
+      document.querySelectorAll('#side a').forEach(function (a) {
+        a.addEventListener('click', function () { setOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+      window.addEventListener('resize', function () { if (window.innerWidth > 980) setOpen(false); });
     })();
   </script>
 </body>
