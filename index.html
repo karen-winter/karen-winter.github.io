@@ -75,7 +75,7 @@
         </ul>
         <p>Throughout my career, people have known me as a problem solver. Account managers often came to me when they had a difficult customer escalation and needed help. I also like sharing what I've learned on my own with my team. I made troubleshooting guides in Google Slides that listed the resources and steps for fixing different system and promotion issues. I'm very organized as well, which made it easy to find the right documents when I had a complex problem to solve.</p>
         <p>I love learning, which is why I spent the past few years building skills I can use at any job. At first I wanted to learn everything. I started with cloud computing and earned the AWS Certified Solutions Architect - Associate certification after about a year of studying. Along the way I also took courses in Linux, networking, Bash and Python. Then I realized I couldn't keep it all, because I wasn't using those skills every day. I had to pick one thing and really focus on it, and I landed on data analysis. It's something I've always wanted to do, and I already had experience with it from my reporting work. Since then I've studied SQL and Tableau through Analyst Builder.</p>
-        <p>My INCI project is how I put those skills to use. It has two parts: the <a href="#analysis">Cosmetic Ingredient Analysis</a> and the <a href="#lookup">Ingredient Lookup Tool</a>. It started with my own skincare and makeup. I used to believe that a higher price tag guaranteed the best quality and most effective products. I relied solely on brand advertising and customer reviews. I first learned about "clean" beauty in 2022 and started paying more attention to the ingredients in my products. I wanted a tool that would give me an overview of the ingredients in a product and their risks, so I could form my own judgment on what the product is designed to do. That's when I started designing my own tool and gathering data on each ingredient I came across. A product's ingredient list is also called an INCI list (International Nomenclature of Cosmetic Ingredients), which is where the project gets its name. After building and utilizing the tool, I learned that advertising and reviews aren't reliable on their own. I use this tool every time I shop for new products. It's a huge time-saver, especially when I'm comparing several products at the same time.</p>
+        <p>My INCI project is how I put those skills to use. It has two parts: the <a href="#analysis">Cosmetic Ingredient Analysis</a> and the <a href="#lookup">Ingredient Lookup Tool</a>. The project started with my own skincare and makeup. I first learned about "clean" beauty in 2022 and started paying more attention to potentially harmful ingredients in my products, such as PFAS ("forever chemicals"), some of which have been linked to cancer. I wanted to develop a tool that would provide a comprehensive overview of a product's ingredients and their potential health risks. That's when I started designing the Ingredient Lookup Tool and gathering data on each ingredient I came across. Now I use it whenever I shop for new products rather than relying on brand advertising and customer reviews. It helps me make more informed decisions by identifying potential ingredient risks and avoiding ingredients such as fragrance, which can contain hormone disruptors.</p>
       </div>
     </section>
 
@@ -88,7 +88,7 @@
         <div class="picture"><div class="dot"><svg viewBox="0 0 64 64" fill="none" stroke="#5a8fc6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 56h48"/><path d="M16 56V34"/><path d="M28 56V14"/><path d="M40 56V26"/><path d="M52 56V42"/></svg></div></div>
         <div class="words">
           <h3>Cosmetic Ingredient Analysis</h3>
-          <p>I collected the ingredient lists for 392 beauty and personal care products and analyzed which ingredients show up in the products with higher EWG scores and other safety concerns. Built with Google Sheets, MySQL and Tableau.</p>
+          <p>I collected the ingredient lists for 392 beauty and personal care products and analyzed which ingredients show up in the products with higher EWG scores (a 1 to 10 hazard rating from the Environmental Working Group) and other safety concerns. Built with Google Sheets, MySQL and Tableau.</p>
           <a class="button" href="#analysis">View project</a>
         </div>
       </div>
@@ -106,25 +106,61 @@
     <section id="analysis" class="shade-1">
       <div class="inner">
         <h2>Cosmetic Ingredient Analysis</h2>
-        <p class="intro">I collected the ingredient lists for 392 beauty and personal care products by hand. I wanted to see how a product's ingredients relate to its EWG score and other safety concerns.</p>
+        <p class="intro">I collected the ingredient lists for 392 beauty and personal care products by hand, covering 1,560 unique ingredients. A product's ingredient list is also called an INCI list (International Nomenclature of Cosmetic Ingredients), which is where my INCI project gets its name. The goal was to understand how a product's ingredients relate to its EWG score and other safety concerns. Instead of looking up each product on EWG one at a time, I combined several sources into one dataset, so I could compare products side by side and spot patterns across all 392.</p>
         <p>I used Google Sheets to collect and clean the data, MySQL to analyze it, and Tableau Public to chart it.</p>
         <p class="jump">Go to: <a href="#sql">MySQL analysis</a> · <a href="#dashboard">Tableau dashboard</a></p>
 
-        <h3 id="data">The data</h3>
-        <p>I started this sheet just for myself, to keep track of what's in the products I use. When I turned it into a project, I had to clean it up and split it into 4 tables:</p>
+        <h3 id="ewg">EWG scores and my risk levels</h3>
+        <p>The Environmental Working Group (EWG) is a nonprofit that rates personal care products and their ingredients in its Skin Deep database. Each one gets a hazard score from 1 to 10, based on known and suspected health concerns. The lower the score, the safer.</p>
+        <p class="sub">EWG's scale</p>
         <ul>
-          <li><b>product</b>: one row per product, with its brand, category and EWG score. There are 392 products in 7 categories.</li>
-          <li><b>ingredient</b>: one row per ingredient, with its EWG score range and flags for avoid, carcinogen, acne and more. There are 1,560 ingredients.</li>
-          <li><b>product_ingredient</b>: which ingredients are in which product. There are 10,259 rows.</li>
-          <li><b>ing_map</b>: matches 880 different label spellings to one standard ingredient name.</li>
+          <li>1 to 2: low hazard</li>
+          <li>3 to 6: moderate hazard</li>
+          <li>7 to 10: high hazard</li>
+          <li>EWG Verified: products that meet EWG's strictest standards. No score is assigned.</li>
         </ul>
-        <p>I standardized brand names with <code>TRIM</code>, <code>PROPER</code>, <code>CLEAN</code> and <code>REGEXREPLACE</code>, made sure the EWG columns only held numbers, removed duplicate products, and cleaned up product names. I also set my own low, medium and high risk tiers.</p>
-        <p><b>Where the data comes from</b></p>
+        <p class="sub">My risk levels</p>
+        <ul>
+          <li>Low: 0 to 3</li>
+          <li>Medium: 4 to 7</li>
+          <li>High: 8 to 10</li>
+          <li>EWG Verified: these products are assigned a rating of 0 in this data, which falls under low risk.</li>
+        </ul>
+        <p>EWG's scale is strict. A score of 3 already counts as moderate, and a 7 counts as high. Since I built this project for my own personal use, I set my own levels: ratings of 0 to 3 count as low risk, and "high risk" is reserved for ratings of 8 and above. This shifts both of EWG's risk thresholds up by one point.</p>
+
+        <h3 id="data">The data</h3>
+        <p class="sub">Data sources</p>
         <ul>
           <li><b>EWG's Skin Deep database</b> (ewg.org/skindeep): product and ingredient EWG scores, plus the cancer, hormone, allergy/irritation and contaminant columns.</li>
           <li><b>California Proposition 65 list</b>: the carcinogen column.</li>
           <li><b>Skinwis ingredient analyzer</b> (skinwis.com/analyzer): the acne risk column (low, medium or high).</li>
-          <li><b>My own choices</b>: the avoid list, the low, medium and high risk tiers, and my notes.</li>
+          <li><b>My own choices</b>: the avoid list, the low, medium and high risk levels, and my notes.</li>
+        </ul>
+        <p class="sub">Tables</p>
+        <ul>
+          <li><b>product</b>: one row per product, with its brand, category and EWG score. There are 392 products in 7 categories.</li>
+          <li><b>ingredient</b>: one row per ingredient, with its EWG score range and flags for avoid, carcinogen, acne and more. There are 1,560 ingredients.</li>
+          <li><b>product_ingredient</b>: a bridge table that links each product to its ingredients, with one row per ingredient in each product. There are 10,259 rows.</li>
+          <li><b>ingredient_map</b>: matches 880 variations of ingredient names to their standard names.</li>
+        </ul>
+        <p class="sub">Data cleaning</p>
+        <ul>
+          <li>Built the ingredient_map table:
+            <ul>
+              <li>Removed duplicates from the ingredient table and added each variation to ingredient_map</li>
+              <li>Created the product_ingredient table to catch the rest, and filtered it for ingredients with no matching <code>ing_id</code></li>
+              <li>Researched about 1,000 of those by hand to confirm whether each was a variation of an existing standard name</li>
+              <li>Corrected misspelled ingredient names found during that review</li>
+              <li>Added each confirmed variation to ingredient_map instead of keeping it as a duplicate ingredient</li>
+            </ul>
+          </li>
+          <li>Split EWG score ranges (like "1-2") into separate minimum and maximum columns, after Google Sheets read some of the ranges as dates</li>
+          <li>Removed products whose ingredients didn't match anything in the ingredient table</li>
+          <li>Removed ingredients that weren't used by any product</li>
+          <li>Made sure the EWG columns only held numbers. Some scores were stored as text, so I multiplied them by 1 to convert them.</li>
+          <li>Converted the fragrance column to true/false values so Tableau could read it</li>
+          <li>Standardized brand spellings with <code>TRIM</code>, <code>PROPER</code>, <code>CLEAN</code> and <code>REGEXREPLACE</code>, and removed extra details and stray characters like "/" from product names</li>
+          <li>Removed duplicate products</li>
         </ul>
 
         <h3 id="limits">Limits of this data</h3>
@@ -142,7 +178,7 @@
         <p>I loaded the 4 tables into MySQL and wrote 12 queries. Each one starts with the question I wanted to answer. What I found is written under each query.</p>
         <p class="small-note">These results show what goes together in my data. They don't prove that one thing causes another.</p>
 
-        <p><b>Loading the data</b></p>
+        <p class="sub">Loading the data</p>
         <p>I built the 4 tables in Google Sheets first. The Table Data Import Wizard in MySQL Workbench gave me errors, so I created the tables with <code>CREATE TABLE</code> and loaded the data with <code>INSERT</code> statements. To build the rows of values, I used a Google Sheets formula with <code>ARRAYFORMULA</code>, <code>TEXTJOIN</code> and <code>SUBSTITUTE</code>. I ran into three problems along the way:</p>
         <ul>
           <li>Blank and "N/A" values caused errors. They turned out to be ingredients with no EWG score, so I removed them.</li>
@@ -339,6 +375,15 @@
         <h2>Ingredient Lookup Tool</h2>
         <p class="intro">When a product's full ingredient list is pasted into the tool, it gives a snapshot of the product's risks. It also shows each ingredient next to past purchases that contain it.</p>
 
+        <h3>Why not just use EWG?</h3>
+        <ul>
+          <li>Combines several sources in one snapshot: EWG scores, the California Proposition 65 carcinogen list, Skinwis acne ratings, a personal avoid list and notes. No separate lookups are needed, which saves time when comparing products.</li>
+          <li>Breaks down every ingredient with its own risk flags. That breakdown matters more for a purchasing decision than a single product score.</li>
+          <li>Shows which past purchases contain each ingredient, which helps spot ingredients that have caused breakouts before.</li>
+          <li>Works on any product label, including products EWG hasn't rated. Any new ingredient gets added to the ingredient table.</li>
+          <li>Uses custom risk levels instead of EWG's stricter scale.</li>
+        </ul>
+
         <h3>How it works</h3>
         <ol>
           <li>A product's ingredient list is pasted into one cell.</li>
@@ -377,12 +422,14 @@
         <a class="shot" href="lookup-ingredient-search.png" target="_blank" rel="noopener"><img src="lookup-ingredient-search.png" alt="Screenshot of the ingredient search tab. A search for fragrance finds 1 ingredient and shows its risk, EWG score, flags and purpose." width="1827" height="128"></a>
 
         <h3>How I built it</h3>
-        <p>The main functions I used are <code>XLOOKUP</code>, <code>FILTER</code>, <code>REGEXREPLACE</code>, <code>LET</code> and <code>LAMBDA</code>. I built the formulas with help from AI tools. I worked through each one until I understood what it was doing, and kept notes on every change in a formula tab.</p>
-        <p>It took a lot of fixes to get the results right. These are the main ones:</p>
+        <p>The main functions I used are <code>XLOOKUP</code> and <code>FILTER</code> for lookups; <code>REGEXREPLACE</code>, <code>REGEXMATCH</code>, <code>SPLIT</code>, <code>TEXTJOIN</code> and <code>UNIQUE</code> for cleaning and splitting text; and <code>LET</code>, <code>LAMBDA</code>, <code>MAP</code>, <code>BYROW</code> and <code>ARRAYFORMULA</code> for running formulas across whole lists. I built the formulas with help from AI tools. I described what each formula needed to do and got a first version back, but it wasn't always correct. So I tested each one and went back and forth until it returned the right results. I kept notes on every change in a formula tab.</p>
+        <p>Building the formulas came with a few challenges. Here's how I handled each one:</p>
         <ul>
-          <li><b>Splitting the ingredient list.</b> Splitting on commas wasn't enough. An ingredient like 1,2-Hexanediol has a comma in its name, and labels include extras like "may contain," percentages and color codes. I kept adding rules until every ingredient landed on its own row with a clean name.</li>
-          <li><b>Wrong counts.</b> My first formulas read each product's ingredient list as text. They counted "may contain" as an ingredient, and searching for the word "Fragrance" gave wrong results. I rebuilt them to count from the product_ingredient table, and the numbers came out right.</li>
-          <li><b>Scores read as text.</b> Some EWG scores were being treated as text instead of numbers, so they couldn't be compared. Multiplying them by 1 fixed it.</li>
+          <li><b>Splitting the ingredient list.</b> Splitting on commas wasn't enough. Some chemical names contain commas, like 1,2-Hexanediol, and color codes come in groups, like Iron Oxides (CI 77491, CI 77492, CI 77499). Fixing one often broke the other, so both had to be handled together. I kept adding rules until every ingredient landed on its own row with a clean name.</li>
+          <li><b>Removing extra label text.</b> Labels often include text that isn't an ingredient, like "May Contain (+/-):" before a group of colors. A targeted pattern (<code>\(\+/-\)</code>) removed the (+/-) block without touching descriptions in other parentheses, so "May Contain (+/-): CI 77891 (Titanium Dioxide)" became "CI 77891 (Titanium Dioxide)". Leftover slashes between items, like "Tocopherol. / CI 77163", were removed too.</li>
+          <li><b>Removing percentages without breaking names.</b> Labels show concentrations in different ways, like (2.5%), Avobenzone 3.0% or (0.12 Ppm). The formula had to remove those while keeping descriptions in parentheses, like (Kukui) in Aleurites Moluccanus (Kukui) Seed Oil. At first it split the list before removing percentages, so "Titanium Dioxide 9%" and "Titanium Dioxide" were treated as two different ingredients. Moving the percentage removal before the split made them identical, and <code>UNIQUE</code> combined them into one row.</li>
+          <li><b>Assigning product categories.</b> Each product gets a category, like Skincare or Makeup, based on keywords in its name. A formula uses <code>MAP</code> and <code>REGEXMATCH</code> to check every product name against a keyword list on a hidden tab, and picks the category with the best match. Keywords written in quotes count double, so a specific phrase beats a general word. Getting there took a few fixes: word-boundary searches (<code>\b</code>) didn't work next to parentheses, and matches were case-sensitive until a case-insensitive flag (<code>(?i)</code>) was added.</li>
+          <li><b>Getting accurate ingredient counts.</b> My first formulas worked on each product's ingredient text directly. Some used <code>REGEXMATCH</code> to search for every name an ingredient goes by, like Bismuth Oxychloride and Ci 77163 (Bismuth Oxychloride), but the counts were still off. "May contain" was counted as an ingredient, and searching for "Fragrance" gave wrong results. I rebuilt the formulas to count from the product_ingredient table, and the numbers came out right.</li>
           <li><b>Order of the results.</b> The results were sorted A to Z at first. I changed them to keep the order on the label, because ingredients are listed from highest to lowest concentration.</li>
         </ul>
         <p class="small-note">The sheet itself stays private because it holds the data I collected by hand. The video and screenshots show how it works.</p>
