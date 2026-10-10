@@ -196,6 +196,7 @@ li { margin-bottom: 6px; }
 #home .inner { max-width: 1000px; }
 #home h1 { margin-bottom: 8px; }
 #home .intro { margin-bottom: 46px; }
+#home .tiles-title { margin: 0 0 16px; }
 .tiles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -434,6 +435,19 @@ html.one-at-a-time #content > section.flush.show { display: flex; flex-direction
   #menu-btn span:nth-child(1) { top: 15px; }
   #menu-btn span:nth-child(2) { top: 21px; }
   #menu-btn span:nth-child(3) { top: 27px; }
+  /* The word "Menu" next to the three lines. It hides when the menu is open, leaving just the X. */
+  #menu-btn { width: auto; min-width: 44px; padding: 0 14px 0 44px; }
+  #menu-btn .menu-word {
+    display: block;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 44px;
+  }
+  html.menu-open #menu-btn { width: 44px; padding: 0; }
+  html.menu-open #menu-btn .menu-word { display: none; }
   html.menu-open #menu-btn { left: calc(var(--drawer) + 12px); }
   html.menu-open #menu-btn span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
   html.menu-open #menu-btn span:nth-child(2) { opacity: 0; }
