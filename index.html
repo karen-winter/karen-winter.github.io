@@ -79,7 +79,7 @@
         </ul>
         <p>Throughout my career, people have known me as a problem solver. Account managers often came to me when they had a difficult customer escalation and needed help. I also like sharing what I've learned on my own with my team. I made troubleshooting guides in Google Slides that listed the resources and steps for fixing different system and promotion issues. Attention to detail and strong organizational skills are two of my key strengths. Both contributed to locating the right resources and navigating complex problems effectively.</p>
         <p>I love learning, which is why I've spent the past few years developing skills that I can apply across a variety of roles. I started with cloud computing and earned the AWS Certified Solutions Architect - Associate certification after about a year of studying. Along the way, I also completed courses in Linux, networking, Bash, and Python. However, as I continued learning new material without consistently applying what I had already learned, I found it difficult to retain and reinforce those skills. So I decided to pick one area and really focus on it, and I landed on data analysis. It's something I'm passionate about, and I already had experience with it from my reporting work. Since then, I've studied SQL and Tableau through Analyst Builder, an online learning platform with courses in data analytics.</p>
-        <p>My INCI project is how I put those skills to use. It has two parts: the <a href="#analysis">Cosmetic Ingredient Analysis</a> and the <a href="#lookup">Ingredient Lookup Tool</a>. The project started with my own skincare and makeup. I first learned about "clean" beauty in 2022 and started paying more attention to potentially harmful ingredients in my products, such as PFAS ("forever chemicals"), some of which have been linked to cancer. I wanted to develop a tool that would provide a comprehensive overview of a product's ingredients and their potential health risks. That's when I started designing the Ingredient Lookup Tool and gathering data on each ingredient I came across. Now I use it whenever I shop for new products rather than relying on brand advertising and customer reviews. It helps me make more informed decisions by identifying health risks associated with each ingredient and avoiding ingredients such as fragrance, which can contain hormone disruptors.</p>
+        <p>My INCI project is how I put those skills to use. It has two parts: the <a href="#analysis">Cosmetic Ingredient Analysis</a> and the <a href="#lookup">Ingredient Lookup Tool</a>. The project started with my own skincare and makeup. I first learned about "clean" beauty in 2022 and started paying more attention to potentially harmful ingredients in my products, such as PFAS ("forever chemicals"), some of which have been linked to cancer. I wanted to develop a tool that would provide a comprehensive overview of a product's ingredients and their potential health risks. In 2024, I started designing the Ingredient Lookup Tool and gathering data on each ingredient I came across. Now I use it whenever I shop for new products rather than relying on brand advertising and customer reviews. It helps me make more informed decisions by identifying health risks associated with each ingredient and avoiding ingredients such as fragrance, which can contain hormone disruptors.</p>
       </div>
     </section>
 
@@ -101,7 +101,7 @@
         <div class="picture"><div class="dot"><svg viewBox="0 0 64 64" fill="none" stroke="#5a8fc6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="27" cy="27" r="17"/><path d="M40 40l16 16"/><path d="M19 23h16"/><path d="M19 31h10"/></svg></div></div>
         <div class="words">
           <h3>Ingredient Lookup Tool</h3>
-          <p>A Google Sheet that generates an overview of every ingredient in a product, including its EWG rating, risk level, acne, cancer, hormone, irritation, and contamination concerns. It also shows personal notes and past products that contain each ingredient.</p>
+          <p>A Google Sheet that generates an overview of every ingredient in a product, including its EWG score, risk level, acne, cancer, hormone, irritation, and contamination concerns. It also shows personal notes and past products that contain each ingredient.</p>
           <a class="button" href="#lookup">View project</a>
         </div>
       </div>
@@ -238,7 +238,7 @@
 <span class="k">ORDER</span> <span class="k">BY</span> COUNT(<span class="k">DISTINCT</span> pi.pro_id) <span class="k">DESC</span>
 <span class="k">LIMIT</span> <span class="n">15</span>;</pre>
         <p>The most common ingredients all have low EWG scores. Water is in 288 products and glycerin is in 231.</p>
-        <h4>5. Which ingredients have a high EWG rating (EWG 8 or higher)?</h4>
+        <h4>5. Which ingredients have a high EWG score (EWG 8 or higher)?</h4>
 <pre><span class="k">SELECT</span>
     i.ingredient_standard,
     ewg_min,
@@ -317,7 +317,7 @@
 <span class="k">ORDER</span> <span class="k">BY</span> products <span class="k">DESC</span>, ewg_max <span class="k">DESC</span>;</pre>
         <p>There are 39 ingredients I avoid, and fragrance is in the most products (59). I avoid ingredients with an ewg_max of 10, except carbon black. It's the only one of those 5 ingredients with an ewg_min of 3, which makes its EWG gap bigger. That means its safety depends on more variables. I also avoid ingredients that can disrupt hormones (preservatives like BHT and parabens).</p>
         <p>Synthetic ureas can release formaldehyde, so I avoid those as well. I avoid ingredients that I know break me out, like biotin, VP polymers, and glyceryl dioleate, even though they have low EWG scores.</p>
-        <h4>9. Do more ingredients lead to a higher EWG rating?</h4>
+        <h4>9. Do more ingredients lead to a higher EWG score?</h4>
 <pre><span class="k">SELECT</span>
     <span class="k">CASE</span>
         <span class="k">WHEN</span> n_ingredient &lt;= <span class="n">10</span> <span class="k">THEN</span> <span class="s">'01: 1-10 Ingredients'</span>
@@ -399,7 +399,7 @@
         <video class="demo" controls muted playsinline preload="metadata" width="1600" height="630">
           <source src="lookup-demo-web.mp4" type="video/mp4">
         </video>
-        <p class="small-note">A 52-second recording of the tool in use. It has no sound.</p>
+        <p class="small-note">A 52-second recording of the tool in use, with captions. It has no sound.</p>
 
         <h3>What it flags</h3>
         <p>The top of the sheet gives a quick summary of the product:</p>
@@ -418,7 +418,7 @@
           <li>Stars on every "high" and "yes"</li>
           <li>How many products in the data contain the ingredient, and which ones</li>
         </ul>
-        <a class="shot" href="lookup-table.png" target="_blank" rel="noopener"><img src="lookup-table.png" alt="Screenshot of the lookup tool's table. It has one row per ingredient with its risk, EWG score, flags, my notes, its purpose, and the other products that contain it." width="1849" height="389"></a>
+        <a class="shot" href="lookup-table.png" target="_blank" rel="noopener"><img src="lookup-table.png" alt="Screenshot of the lookup tool's table. It has one row per ingredient with its risk, EWG score, flags, personal notes, its purpose, and the other products that contain it." width="1849" height="389"></a>
         <p>There is also a product search and an ingredient search. Typing part of a product name or an ingredient shows every match with its scores and flags.</p>
         <p class="shot-label">Product search</p>
         <a class="shot" href="lookup-product-search.png" target="_blank" rel="noopener"><img src="lookup-product-search.png" alt="Screenshot of the product search tab. A search for estee finds 2 products and shows each one's EWG score, ingredient counts, and full ingredient list." width="1626" height="329"></a>
